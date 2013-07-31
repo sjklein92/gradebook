@@ -17,6 +17,9 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class GradingSchemeTest {
 
+    /**
+     * Tests scheme instantiation.
+     */
     @Test
     public void testCreateGradingScheme() {
         GradingScheme scheme = new GradingScheme();

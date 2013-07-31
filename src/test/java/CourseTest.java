@@ -18,17 +18,24 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class CourseTest {
 
+    /** Course object used for testing. */
     private Course course;
 
+    /** 
+     * Sets up a course for testing.
+     */
     @Before
-    public void initialize () {
+    public void initialize() {
         int[] prerequisites = new int[1];
         prerequisites[0] = 1331;
         course = new Course("Objects & Design", 2340, prerequisites);
     }
 
+    /**
+     * Tests course instantiation.
+     */
     @Test
-    public void testCreateCourse () {
+    public void testCreateCourse() {
         int[] prerequisites = new int[1];
         prerequisites[0] = 1331;
         assertNotNull("Course must not be null", course);
@@ -38,6 +45,14 @@ public class CourseTest {
                 course.getCourseNumber());
         assertArrayEquals("Course prequisites must contain 1331", 
                 prerequisites, course.getPrerequisites());
+    }
+
+    /**
+     * Tests subject name getter method. 
+     */
+    @Test
+    public void testGetSubject() {
+        assertNotNull("Course must have a valid subject.", course.getSubject());
     }
 
 }

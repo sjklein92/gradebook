@@ -17,18 +17,32 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class GradedClassTest
 {
+    /** Class object used for testing. */
     GradedClass gradedClass;
     
+    /**
+     * Sets up class for tests.
+     */
     @Before
-    public void initialize () {
+    public void initialize() {
         gradedClass = new GradedClass("Summer", 5);
     }
     
+    /**
+     * Tests class instatiation.
+     */
     @Test
-    public void testCreateClass () {
+    public void testCreateClass() {
         assertNotNull("Class must not be null", gradedClass);
-        assertEquals("Name of class must be 'Summer'", "Summer", 
-                gradedClass.getName());
     }    
+
+    /**
+     * Tests getter method for class name.
+     */
+    @Test 
+    public void testGetName() {
+        assertEquals("Name of class must be 'Summer'", "Summer", 
+            gradedClass.getName());
+    }
 }
 

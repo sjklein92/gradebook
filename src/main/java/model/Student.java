@@ -18,6 +18,9 @@ public class Student extends DetermineGrade {
     /** Grading algorithm to be used for the student's materials. */
     private GradingScheme scheme;
 
+    /** Highest grade a student can have for one item. */
+    private final int maximumGrade = 100;
+
     /**
      * Default Constructor.
      * @param newName Given name of the student.
@@ -49,7 +52,7 @@ public class Student extends DetermineGrade {
      * @param category The type of grade to be selected.
      */
     public final void dropLowestInCategory(final GradebookCategory category) {
-        int lowestGrade = 100;
+        int lowestGrade = maximumGrade;
         int itemIndex = 0;
         for (int i = 0; i < gradedItems.size(); i++) {
             GradebookItem currentItem = gradedItems.get(i);
