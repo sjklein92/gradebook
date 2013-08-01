@@ -34,4 +34,16 @@ public class GradebookCategoryTest {
     public void testCreateGradebookCategory() {
         assertNotNull("Gradebook category must not be null", category);
     }
+
+    @Test
+    public void testGetName() {
+        assertEquals("Gradebook category name must be 'Test'.", "Test", 
+            category.getName());
+    }
+
+    @Test
+    public void testGetWeight() {
+        assertEquals("Gradebook category weight must be 1.00", 1.00, 
+            category.getWeight(), 0.001);
+    }
 }

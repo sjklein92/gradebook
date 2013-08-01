@@ -36,15 +36,16 @@ public class CourseTest {
      */
     @Test
     public void testCreateCourse() {
-        int[] prerequisites = new int[1];
-        prerequisites[0] = 1331;
         assertNotNull("Course must not be null", course);
-        assertEquals("Course subject must be 'Objects & Design'", 
-                "Objects & Design", course.getSubject());
-        assertEquals("Course number must be 2340", 2340, 
-                course.getCourseNumber());
-        assertArrayEquals("Course prequisites must contain 1331", 
-                prerequisites, course.getPrerequisites());
+    }
+
+    /**
+     * Tests class addition
+     */
+    @Test
+    public void testAddClass() {
+        GradedClass newClass = new GradedClass("Summer");
+        course.addClass(newClass);
     }
 
     /**
@@ -52,7 +53,69 @@ public class CourseTest {
      */
     @Test
     public void testGetSubject() {
-        assertNotNull("Course must have a valid subject.", course.getSubject());
+        assertEquals("Course subject must be 'Objects & Design'.", 
+            "Objects & Design", course.getSubject());
     }
+
+    /**
+     * Tests course number getter method
+     */
+    @Test
+    public void testGetCourseNumber() {
+        assertEquals("Course number must be 2340.", 
+            2340, course.getCourseNumber());
+    }
+
+    /**
+     * Tests prerequisites getter method
+     */
+    @Test
+    public void testGetPrerequisites() {
+        assertEquals("Course prequisites must contain 1331", 
+                1331, course.getPrerequisites()[0]);
+    }
+
+    /**
+     * Tests average retreival method
+     */
+    @Test
+    public void testGetAvgScore() {
+        initialize();
+        buildHierarchy();
+        int courseAvg = course.getAvgScore();
+        assertEquals("Course average must be 77.", 77, courseAvg);
+    }
+
+    @Test
+    public void testGetGrade() {
+        initialize();
+        buildHierarchy();
+        assertEquals("Course grade must be a C", "C", course.getGrade());
+    }
+
+    /**
+     * Helper method to substantiate course with grades, a student, 
+     *  a section, and a class.
+     */
+    public void buildHierarchy() {
+         GradebookCategory testCategory 
+            = new GradebookCategory("Test", (float) 1.00);
+
+        GradebookItem firstTest = new GradebookItem(75, testCategory);
+        GradebookItem secondTest = new GradebookItem(80, testCategory);
+
+        Student newStudent = new Student("John Doe");
+        newStudent.addGradebookItem(firstTest);
+        newStudent.addGradebookItem(secondTest);
+
+        gradebook.model.Section newSection = new gradebook.model.Section("section1");
+        newSection.addStudent(newStudent);
+
+        GradedClass newClass = new GradedClass("Summer");
+        newClass.addSection(newSection);
+
+        course.addClass(newClass);
+    }
+
 
 }

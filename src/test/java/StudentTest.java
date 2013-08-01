@@ -1,9 +1,12 @@
 import gradebook.model.*;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertArrayEquals;
+
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +34,8 @@ public class StudentTest {
         assertNotNull("Student object must be instantiated", student);
     }
 
+
+
     @Test
     public void testAddGradebookItem() {
         GradebookCategory test = new GradebookCategory("Test", (float) 0.50);
@@ -42,8 +47,14 @@ public class StudentTest {
     }
 
     @Test
+    public void testGetGradebookItems() {
+        assertTrue("Student must produce an ArrayList when prompted.", 
+            student.getGradedItems() instanceof ArrayList);
+    }
+
+    @Test
     public void testDropLowestInCategory() {
-        student = new Student("Jane Doe");
+        initialize();
         addSampleTests();
         GradebookCategory test = new GradebookCategory("Test", (float) 1.00);
         student.dropLowestInCategory(test);
@@ -54,7 +65,7 @@ public class StudentTest {
     }
 
     public void addSampleTests() {
-        GradebookCategory test = new GradebookCategory("Test", (float) 0.50);
+        GradebookCategory test = new GradebookCategory("Test", (float) 1.00);
         GradebookItem lowScore = new GradebookItem(25, test);
         student.addGradebookItem(lowScore);
         GradebookItem highScore = new GradebookItem(100, test);
@@ -63,11 +74,17 @@ public class StudentTest {
 
     @Test
     public void testGetAvgScore() {
-        student = new Student("Jack Doe");
-        GradingScheme scheme = new GradingScheme();
-        student.updateScheme(scheme);
+        initialize();
         addSampleTests();
         int avgScore = student.getAvgScore();
         assertEquals("Average score must be 62.", 62, avgScore);
+    }
+
+    @Test
+    public void testGetGrade() {
+        initialize();
+        addSampleTests();
+        String grade = student.getGrade();
+        assertEquals("Student grade must be 'D'.", "D", grade);
     }
 }
